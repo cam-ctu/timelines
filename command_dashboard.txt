@@ -1,0 +1,9 @@
+ docker build -t shug0131/timelines .
+docker push shug0131/timelines
+
+
+cd /spare_not_backup/docker
+docker compose -f compose_timelines.yaml -p timelines up -d
+
+could put some of this into a github action.
+http://localhost:8180/

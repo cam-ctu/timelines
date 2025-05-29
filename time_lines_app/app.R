@@ -14,7 +14,9 @@ library(ggplot2)
 library(dplyr)
 
 
-
+# Specify the application port
+options(shiny.host = "0.0.0.0")
+options(shiny.port = 8180)
 
 
 
@@ -57,7 +59,8 @@ server <- function(input, output, session) {
 
 
   my_data <- reactive({
-    file <- "~/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
+    file <- "/home/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
+    #file <- "home/shiny-app/timelines.xml"
     df_xml <- xmlParse(file)
     statisticians <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//statisticians")) |> unique()
     tasks <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//tasks"))|> unique()

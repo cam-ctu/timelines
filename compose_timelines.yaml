@@ -1,0 +1,17 @@
+
+services:
+  rstudio:
+    image: shug0131/timelines:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8180:8180"
+    volumes:
+      - STATISTICS:/home/STATISTICS:rw
+volumes:
+  STATISTICS:
+    driver_opts:
+      type: cifs
+      device: //10.128.3.84/CCTU/STATISTICS
+      o: username=${USERID},password=${PASSWORD},file_mode=0777,dir_mode=0777
+   
+
