@@ -2,3 +2,4 @@
 *.accdb
 *.xlsx
 *.xsd
+.Rproj.user
