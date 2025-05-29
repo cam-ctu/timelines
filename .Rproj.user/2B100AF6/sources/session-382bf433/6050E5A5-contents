@@ -1,0 +1,46 @@
+renv::install("tidyverse")
+renv::install("XML")
+
+
+setwd("V:/STATISTICS/NON STUDY FOLDER/Work Load/timelines")
+
+library(xml2)
+renv::load()
+renv::restore()
+library(RODBC)
+
+path <- normalizePath("TimeLines.accdb")
+db <- odbcConnect(path)
+db <- odbcConnectAccess2007("TimeLines.accdb")
+sqlTables(db, tableType="TABLE")
+df<- sqlFetch(db, "timelines")
+studies <- sqlFetch(db, "studies")
+tasks <- sqlFetch(db, "tasks")
+statisticians <- sqlFetch(db, "statisticians")
+
+library(tidyverse)
+library(XML)
+
+df <- read_xml("timelines.xml")
+df_list <- as_list(df)
+xml_find_all(df, ".//statisticians") |> 
+as_list() |> as_tibble()
+
+
+
+df|> select(-ID) |> rename("ID"="task")|>
+left_join(tasks)|> 
+select(-ID) |> rename("ID"="study")|>
+left_join(studies)|>
+select(-ID, - active) |> rename("ID"="statistician")|>
+left_join(statisticians)|> 
+select(-ID,- Active)
+
+odbcClose(db)
+
+
+
+db <- odbcDriverConnect(connection="~/STATISTICS/NON STUDY FOLDER/Work Load/timelines/TimeLines.accdb")
+
+
+db <- odbcDriverConnect("TimeLines.accdb")

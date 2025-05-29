@@ -1,0 +1,1 @@
+shiny::runApp('time_lines_app.R', launch.browser=TRUE)
