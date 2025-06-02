@@ -1,6 +1,6 @@
 
 services:
-  rstudio:
+  timelines:
     image: shug0131/timelines:latest
     restart: no
     ports:
@@ -13,5 +13,5 @@ volumes:
       type: cifs
       device: //10.128.3.84/CCTU/STATISTICS
       o: username=${USERID},password=${PASSWORD},file_mode=0777,dir_mode=0777
-   
+
 

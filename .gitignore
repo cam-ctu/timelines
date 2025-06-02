@@ -1,5 +1,6 @@
 *.xml
 *.accdb
+*.laccdb
 *.xlsx
 *.xsd
 .Rproj.user
