@@ -79,9 +79,16 @@ server <- function(input, output, session) {
       left_join(statisticians)|>
       select(deadline, study, task, Forename)
     names(df) <- c("date","study","event","person")
+    # work out which statistician has the most task in each study
 
-    study_order <- df %>% group_by(person, study) %>% summarize( value=unique(study))
-    df$study <- factor(df$study, levels=study_order$value, ordered = TRUE)
+    study_order <- df |> count(study, person) |>
+      group_by(study) |>
+      arrange(  -n) |>
+      slice_head() |>
+      arrange(person)
+
+    # study_order <- df %>% group_by(person, study) %>% summarize( value=unique(study))
+    df$study <- factor(df$study, levels=study_order$study, ordered = TRUE)
     df$event <- factor(df$event)
     df$date <- as.POSIXct(df$date)
     df
