@@ -56,10 +56,14 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-
+  observe({updateSelectizeInput(session, 'filter',
+                                choices = my_data()$person |> unique(),#c("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
+                                selected = my_data()$person |> unique(),#list("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
+                                server = TRUE)
+  })
 
   my_data <- reactive({
-    file <- "/home/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
+    file <- "/home/rstudio/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
     #file <- "home/shiny-app/timelines.xml"
     df_xml <- xmlParse(file)
     statisticians <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//statisticians")) |> unique()
@@ -113,11 +117,7 @@ server <- function(input, output, session) {
 
    #sheet_names <- my_data()$person |> unique()
    #
-  observe({updateSelectizeInput(session, 'filter',
-                        choices = my_data()$person |> unique(),#c("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
-                       selected = my_data()$person |> unique(),#list("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
-                        server = TRUE)
-  })
+
 
 }
 
