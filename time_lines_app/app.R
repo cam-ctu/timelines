@@ -63,7 +63,8 @@ server <- function(input, output, session) {
   })
 
   my_data <- reactive({
-    file <- "/home/rstudio/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
+    # this line needs editing between the docker version and local run version
+    file <- "/home/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
     #file <- "home/shiny-app/timelines.xml"
     df_xml <- xmlParse(file)
     statisticians <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//statisticians")) |> unique()

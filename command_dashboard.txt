@@ -7,3 +7,11 @@ docker compose -f compose_timelines.yaml -p timelines up -d
 
 could put some of this into a github action.
 http://localhost:8180/
+
+docker compose pull shug0131/timelines:latest
+
+0.1 is working 0.2 broken,  now 0.3 =latest working - wrong file path for data in docker
+
+
+docker tag shug0131/timelines:0.4 shug0131/timelines:latest
+docker push shug0131/timelines:[x.x, latest]
