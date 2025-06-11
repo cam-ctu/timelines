@@ -17,6 +17,6 @@ jobs:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/timelines:$(date +%s)
+        run: docker build . --file Dockerfile --tag ${{ secrets.DOCKER_USER }}/timelines:$(date +%s) --tag ${{ secrets.DOCKER_USER }}/timelines:latest
       - name: Push the docker image
         run: docker push ${{ secrets.DOCKER_USER }}/timelines -a
