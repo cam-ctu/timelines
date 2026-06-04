@@ -9,14 +9,15 @@
 
 library(shiny)
 #.libPaths("V:/STATISTICS/STUDY PLANNING/R_libraryV3.5")
+webr::install("XML")
 library(XML)
 library(ggplot2)
 library(dplyr)
 
 
 # Specify the application port
-options(shiny.host = "0.0.0.0")
-options(shiny.port = 8180)
+#options(shiny.host = "0.0.0.0")
+#options(shiny.port = 8180)
 
 
 
@@ -56,6 +57,8 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
+
+
   observe({updateSelectizeInput(session, 'filter',
                                 choices = my_data()$person |> unique(),#c("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
                                 selected = my_data()$person |> unique(),#list("Simon", "Wendi",  "Marianna","Rachel", "Corey"),
@@ -64,9 +67,9 @@ server <- function(input, output, session) {
 
   my_data <- reactive({
     # this line needs editing between the docker version and local run version
-    file <- "/home/STATISTICS/NON STUDY FOLDER/Work Load/timelines/timelines.xml"
+    file <- "/spare_not_backup/GitHub/timelines/timelines.xml"
     #file <- "home/shiny-app/timelines.xml"
-    df_xml <- xmlParse(file)
+    df_xml <- XML::xmlParse(file)
     statisticians <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//statisticians")) |> unique()
     tasks <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//tasks"))|> unique()
     studies <- xmlToDataFrame(df_xml, nodes=getNodeSet(df_xml, "//studies"))|> unique()
