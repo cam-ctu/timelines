@@ -27,10 +27,32 @@ on:
     branches: ["main"]
   # Trigger on pull request to all branches (but do not deploy to gh-pages)
   pull_request:
+  workflow_call:
+    inputs:
+      cache-version:
+        type: string
+        default: "1"
+        required: false
 
 jobs:
-  shinylive:
-    uses: posit-dev/r-shinylive/.github/workflows/deploy-app.yaml@actions-v1
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: rstudio/shiny-workflows/setup-r-package@v1
+        with:
+          packages: |
+            renv
+            posit-dev/r-shinylive
+            sessioninfo
+          cache-version: ${{ github.event.inputs.cache-version }}
+
+      - name: Find package dependencies
         shell: Rscript {0}
         id: packages
         run: |
