@@ -1,11 +1,7 @@
-data2 <- df |>
-  group_by(person, study, .drop=TRUE) |>
-  summarise(start_date =min(date, na.rm = TRUE),
-            end_date=max(date, na.rm = TRUE)
-  )
-
-
-install.packages("shinylive")
+#install.packages("shinylive")
 library(shinylive)
-shinylive::export("time_lines_app","site")
-httpuv::runStaticServer("site_example")
+shinylive::export("time_lines_app","docs")
+#httpuv::runStaticServer("docs")
+# Commit to Github and view on
+# https://cam-ctu.github.io/timelines/
+# Local rendering fails, not sure why.
