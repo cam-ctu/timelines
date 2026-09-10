@@ -6,3 +6,6 @@ data2 <- df |>
 
 
 install.packages("shinylive")
+library(shinylive)
+shinylive::export("time_lines_app","site")
+httpuv::runStaticServer("site_example")
