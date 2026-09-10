@@ -22,9 +22,10 @@ name: Deploy app
 
 on:
   workflow_dispatch:
-  # Trigger on push to `main` branch
   push:
-    branches: ["main"]
+    branches: ["master"]
+    paths:
+       - 'time_lines_app/**'
   # Trigger on pull request to all branches (but do not deploy to gh-pages)
   pull_request:
 
@@ -61,13 +62,13 @@ jobs:
           shinylive::export("time_lines_app", "docs")
 
       - name: Upload site artifact
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/master'
         uses: actions/upload-pages-artifact@v3
         with:
           path: "docs/"
 
   deploy:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     needs: build
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
