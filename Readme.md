@@ -22,7 +22,7 @@ This should be created automatically on closing the access DB.  But you need to 
 # Visualisation App
 
 
-* Direct your browser to [](https://cam-ctu.github.io/timelines/)
+* Direct your browser to (https://cam-ctu.github.io/timelines/)
 * Select the file in this directory "timelines.xml"
 
 
